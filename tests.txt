@@ -1,0 +1,18 @@
+Tests for DBus binding test rig:
+
+Tests are functions which will perform a particular transformation on the input and return the result. The should be defined as a DBus signature and description of the function. For example:
+
+<annotation name="org.freedesktop.DBus.Description" value="Returns the sum of the values in the input list"/>
+<method name="sum" >
+   <arg type="ai" direction="in"/>
+   <arg type="x" direction="out"/>
+</method>
+
+<annotation name="org.freedesktop.DBus.Description" value="Given a map of A => B, should return a map of B => a list of all the As which mapped to B"/>
+<method name="sum" >
+   <arg type="a{ss}" direction="in"/>
+   <arg type="a{sas}" direction="out"/>
+</method>
+
+
+
