@@ -1,70 +1,39 @@
-Tests for DBus binding test rig:
+Tests for D-Bus binding test rig:
 
-Tests are functions which will perform a particular transformation on the input and return the result. The should be defined as a DBus signature and description of the function. For example:
+Tests are functions which will perform a particular transformation on the input
+and return the result. The should be defined as a D-Bus signature and
+description of the function:
 
-<annotation name="org.freedesktop.DBus.Description" value="Returns the sum of the values in the input list"/>
-<method name="sum" >
-   <arg type="ay" direction="in"/>
-   <arg type="u" direction="out"/>
-</method>
+test-introspect.xml
 
-<annotation name="org.freedesktop.DBus.Description" value="Returns the sum of the values in the input list"/>
-<method name="sum" >
-   <arg type="ai" direction="in"/>
-   <arg type="x" direction="out"/>
-</method>
+Clients try and cause these to fail in the most obscure way possible. Servers
+make sure all of their methods are called each run. Output format:
 
-<annotation name="org.freedesktop.DBus.Description" value="Given a map of A => B, should return a map of B => a list of all the As which mapped to B"/>
-<method name="mapping_invert" >
-   <arg type="a{ss}" direction="in"/>
-   <arg type="a{sas}" direction="out"/>
-</method>
+   Server:
+      <interface.function> ok
+      <interface.function> ok
+      ....
+      <interface.function> untested
 
-<annotation name="org.freedesktop.DBus.Description" value="This method returns the contents of a struct as separate values"/>
-<method name="destruct" >
-   <arg type="(sun)" direction="in"/>
-   <arg type="s" direction="out"/>
-   <arg type="u" direction="out"/>
-   <arg type="n" direction="out"/>
-</method>
-
-<annotation name="org.freedesktop.DBus.Description" value="Given any compound type as a variant, return all the primitive types recursively contained within as an array of variants"/>
-<method name="primitize" >
-   <arg type="v" direction="in"/>
-   <arg type="av" direction="out"/>
-</method>
-
-<annotation name="org.freedesktop.DBus.Description" value="inverts it's input"/>
-<method name="invert" >
-   <arg type="b" direction="in"/>
-   <arg type="b" direction="out"/>
-</method>
-
-<annotation name="org.freedesktop.DBus.Description" value="triggers sending of a signal from the supplied object with the given parameter"/>
-<method name="triggersignal" >
-   <arg type="o" direction="in"/>
-   <arg type="t" direction="in"/>
-</method>
-
-<signal name="triggered">
-   <arg type="t"/>
-</signal>
-
-<signal name="trigger">
-   <arg type="q"/>
-   <arg type="d"/>
-</signal>
-
-<annotation name="org.freedesktop.DBus.Description" value="when the trigger signal is received, this method should be called on the sending service/object."/>
-<method name="signalresponse" >
-   <arg type="q" direction="in"/>
-   <arg type="d" direction="in"/>
-</method>
+   Client:
+      <interface.function> pass
+      <interface.function> pass
+      ....
+      <interface.function> fail <id1>
+      <interface.function> fail <id2>
+      report <id1>: <text description of failure>
+      report <id2>: <text description of failure>
 
 
-Clients try and cause these to fail in the most obscure way possible. Servers make sure all of their methods are called each run. Output format:
+Starting clients and servers is done using Makefiles and chaining thereof. Each
+binding should provide the following Makefile targets in their respective
+top-level dirs:
 
-
-
+   cross-test-server - run a server which binds to
+                       org.freedesktop.DBus.Binding.TestServer. Listens and
+                       answers method calls until Exit is called. Then prints
+                       test reports.
+   cross-test-client - run a client which runs comprehensive tests against 
+                       the server, then calls Exit and prints test reports
 
 
