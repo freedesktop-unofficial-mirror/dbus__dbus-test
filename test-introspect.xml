@@ -1,0 +1,74 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node name="/Test">
+   <interface name="org.freedesktop.DBus.Binding.SingleTests">
+      <method name="Sum" >
+         <annotation name="org.freedesktop.DBus.Description" value="Returns the sum of the values in the input list"/>
+         <arg type="ay" direction="in"/>
+         <arg type="u" direction="out"/>
+      </method>
+   </interface>
+
+   <interface name="org.freedesktop.DBus.Binding.Tests">
+      <method name="Sum" >
+         <annotation name="org.freedesktop.DBus.Description" value="Returns the sum of the values in the input list"/>
+         <arg type="ai" direction="in"/>
+         <arg type="x" direction="out"/>
+      </method>
+
+      <method name="InvertMalling" >
+         <annotation name="org.freedesktop.DBus.Description" value="Given a map of A => B, should return a map of B => a list of all the As which mapped to B"/>
+         <arg type="a{ss}" direction="in"/>
+         <arg type="a{sas}" direction="out"/>
+      </method>
+
+      <method name="DeStruct" >
+         <annotation name="org.freedesktop.DBus.Description" value="This method returns the contents of a struct as separate values"/>
+         <arg type="(sun)" direction="in"/>
+         <arg type="s" direction="out"/>
+         <arg type="u" direction="out"/>
+         <arg type="n" direction="out"/>
+      </method>
+
+      <method name="Primitize" >
+         <annotation name="org.freedesktop.DBus.Description" value="Given any compound type as a variant, return all the primitive types recursively contained within as an array of variants"/>
+         <arg type="v" direction="in"/>
+         <arg type="av" direction="out"/>
+      </method>
+
+      <method name="Invert" >
+         <annotation name="org.freedesktop.DBus.Description" value="inverts it's input"/>
+         <arg type="b" direction="in"/>
+         <arg type="b" direction="out"/>
+      </method>
+
+      <method name="Trigger" >
+         <annotation name="org.freedesktop.DBus.Description" value="triggers sending of a signal from the supplied object with the given parameter"/>
+         <arg type="o" direction="in"/>
+         <arg type="t" direction="in"/>
+      </method>
+      <method name="Exit" >
+         <annotation name="org.freedesktop.DBus.Description" value="Causes server process to exit"/>
+      </method>
+   </interface>
+   
+   <interface name="org.freedesktop.DBus.Binding.TestSignals">
+      <signal name="Triggered">
+         <annotation name="org.freedesktop.DBus.Description" value="Sent in response to a method call"/>
+         <arg type="t"/>
+      </signal>
+
+      <signal name="Trigger">
+         <annotation name="org.freedesktop.DBus.Description" value="Causes a callback"/>
+         <arg type="q"/>
+         <arg type="d"/>
+      </signal>
+   </interface>
+
+   <interface name="org.freedesktop.DBus.Binding.TestCallbacks">
+      <method name="Response" >
+         <annotation name="org.freedesktop.DBus.Description" value="when the trigger signal is received, this method should be called on the sending service/object."/>
+         <arg type="q" direction="in"/>
+         <arg type="d" direction="in"/>
+      </method>
+   </interface>
+</node>
