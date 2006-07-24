@@ -31,9 +31,13 @@ top-level dirs:
 
    cross-test-server - run a server which binds to
                        org.freedesktop.DBus.Binding.TestServer. Listens and
-                       answers method calls until Exit is called. Then prints
-                       test reports.
+                       answers method calls on the /Test object until Exit
+                       is called. Then prints test reports.
    cross-test-client - run a client which runs comprehensive tests against 
                        the server, then calls Exit and prints test reports
 
+Ignoring tests:
 
+   Tests can be ignored if you know they are going to fail. This will print a
+   list of ignored fails. To ignore tests create a file cross-test-ignore
+   containing a list of interface.function, one per line.
