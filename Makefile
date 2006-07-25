@@ -86,6 +86,9 @@ analyzeall:
 			  echo -ne "\033[32m";\
 		  fi; \
 		  cat *$${i}.server.log 2>/dev/null | grep -c untested$$ ;\
+		  echo -ne "\033[39m";\
+	     \
+		  echo "   not-ignored untested functions: " ;\
 		  echo -ne "\033[33m";\
 		  for j in `cat *$${i}.server.log 2>/dev/null | grep untested$$ | cut -d' ' -f1 | sort -u`; do \
 	          if ! grep $$j $${i}/cross-test-ignore &>/dev/null; then \
