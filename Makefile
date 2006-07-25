@@ -43,7 +43,7 @@ analyzeall:
 		  for j in $${i}*.client.log; do \
 		  	 for k in `grep fail $$j  2>/dev/null| cut -d' ' -f 3`; do \
 	          if ! grep `grep "fail $$k" < $$j | cut -d' ' -f1` $${i}/cross-test-ignore &>/dev/null; then \
-	            echo "     " `grep "fail $$k" < $$j | cut -d' ' -f1`: `grep "^report $${k}:" < $$j | cut -d: -f2`; \
+	            echo "     " `grep "fail $$k" < $$j | cut -d' ' -f1`: `grep "^report $${k}:" < $$j | sed 's/^[^:]*://'`; \
 	         fi; \
 			 done ;\
 		  done ;\
