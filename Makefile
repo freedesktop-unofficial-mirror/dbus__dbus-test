@@ -80,7 +80,7 @@ analyzeall:
 		  echo -e "\033[39m";\
 	   \
 		  echo -n "   functions: " ;\
-		  if grep fail $${i}*.client.log &>/dev/null; then \
+		  if grep untested *$${i}.server.log &>/dev/null; then \
 			  echo -ne "\033[33m";\
 		  else \
 			  echo -ne "\033[32m";\
