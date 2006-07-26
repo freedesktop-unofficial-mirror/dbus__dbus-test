@@ -116,9 +116,11 @@ check:
 	( dbus-daemon --config-file=tmp-session.conf --print-pid --print-address=5 --fork >pid 5>address ; \
 	  export DBUS_SESSION_BUS_ADDRESS=$$(cat address |sed "s,\./,`pwd`/,") ;\
 	  dbus-monitor > monitor &\
+	  sleep 1;\
 	  make -sC $(SERV) cross-test-compile ;\
 	  make -sC $(SERV) cross-test-server > $(SERV)-$(CLI).server.log &\
 	  make -sC $(CLI) cross-test-compile ;\
+	  sleep 1;\
 	  make -sC $(CLI) cross-test-client > $(SERV)-$(CLI).client.log ;\
 	  kill $$(cat pid) )
 
