@@ -160,7 +160,7 @@
 
       <method name="Trigger" >
          <annotation name="org.freedesktop.DBus.Description" value="triggers sending of a signal from the supplied object with the given parameter"/>
-         <arg type="o" name="object" direction="in"/>
+         <arg type="s" name="object" direction="in"/>
          <arg type="t" name="parameter" direction="in"/>
       </method>
       <method name="Exit" >
