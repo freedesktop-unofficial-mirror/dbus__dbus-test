@@ -29,6 +29,7 @@ Starting clients and servers is done using Makefiles and chaining thereof. Each
 binding should provide the following Makefile targets in their respective
 top-level dirs:
 
+   cross-test-compile - do any compilation necessary to run the server and client
    cross-test-server - run a server which binds to
                        org.freedesktop.DBus.Binding.TestServer. Listens and
                        answers method calls on the /Test object until Exit
