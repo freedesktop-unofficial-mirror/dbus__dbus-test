@@ -6,6 +6,7 @@ all: testall analyzeall
 analyzeall:
 	( for i in $(BINDINGS) ; do \
 	  \
+	  	  export RESULT=0 ;\
 		  echo "Test results for $${i}" ;\
 		  if [[ "`cat $${i}*.server.log 2>/dev/null | wc -l`" == "0" ]]; then \
 		  		echo -e "\033[31mFailed to generate test data for $${i}.\033[39m";\
@@ -35,6 +36,7 @@ analyzeall:
 	           echo -ne "\033[32m";\
 	        else \
 	           echo -ne "\033[31m";\
+				  export RESULT=-100 ;\
 	        fi; \
 	        echo -n $$y ;\
 	        echo -e "\033[39m";\
@@ -54,6 +56,7 @@ analyzeall:
 	           echo -ne "\033[32m";\
 	        else \
 	           echo -ne "\033[33m";\
+				  export RESULT=$$(( $$RESULT + 10 )); \
 	        fi; \
 	        echo -n $$x ;\
 	        echo -e "\033[39m";\
@@ -82,6 +85,7 @@ analyzeall:
 		  echo -n "   functions: " ;\
 		  if grep untested *$${i}.server.log &>/dev/null; then \
 			  echo -ne "\033[33m";\
+			  export RESULT=$$(( $$RESULT + 10 )); \
 		  else \
 			  echo -ne "\033[32m";\
 		  fi; \
@@ -95,7 +99,15 @@ analyzeall:
 	            echo "      " $$j; \
 	          fi; \
 	     done ; \
-		  echo -ne "\033[39m";\
+		  echo -e "\033[39m";\
+		  echo -n "   Verdict: ";\
+		  if (( $$RESULT == 0 )); then\
+		  		echo -e "\033[32mPASSED\033[39m";\
+		  elif (( $$RESULT > 0 )); then\
+		  		echo -e "\033[33mPARTIAL\033[39m";\
+		  else \
+		  		echo -e "\033[31mFAIL\033[39m";\
+			fi; \
 	done )
 	
 
