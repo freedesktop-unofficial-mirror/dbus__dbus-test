@@ -1,7 +1,7 @@
 Tests for D-Bus binding test rig:
 
 Tests are functions which will perform a particular transformation on the input
-and return the result. The should be defined as a D-Bus signature and
+and return the result. They should be defined as a D-Bus signature and
 description of the function:
 
 test-introspect.xml
