@@ -6,6 +6,11 @@ description of the function:
 
 test-introspect.xml
 
+Servers must also support:
+
+   Peer.Ping
+   Introspectable.Introspect on all objects and parent paths
+
 Clients try and cause these to fail in the most obscure way possible. Servers
 make sure all of their methods are called each run. Output format:
 

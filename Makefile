@@ -119,10 +119,8 @@ testall:
 	  done)
 
 clean:
-	-rm -- *log
-	-rm address
-	-rm pid
-	-rm tmp-session-bus
+	rm -f -- *log
+	rm -f address pid tmp-session-bus monitor
 
 check:
 	( dbus-daemon --config-file=tmp-session.conf --print-pid --print-address=5 --fork >pid 5>address ; \
