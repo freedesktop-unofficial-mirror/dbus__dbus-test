@@ -6,6 +6,9 @@ description of the function:
 
 test-introspect.xml
 
+The SingleTests Tests and TestSignals interfaces should be implemented by the
+servers. The TestClient interface should be implemented by the client.
+
 Servers must also support:
 
    Peer.Ping
@@ -47,3 +50,10 @@ Ignoring tests:
    Tests can be ignored if you know they are going to fail. This will print a
    list of ignored fails. To ignore tests create a file cross-test-ignore
    containing a list of interface.function, one per line.
+
+A note on Signals:
+
+   The tests involve two signals. Triggered is sent from the server to the
+   client when the Trigger() method is called. The client sends Trigger to the
+   server which should cause Response() to be called by the server on the
+   client.

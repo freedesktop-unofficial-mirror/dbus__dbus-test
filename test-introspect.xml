@@ -167,27 +167,26 @@
          <annotation name="org.freedesktop.DBus.Description" value="Causes server process to exit"/>
       </method>
    </interface>
-   
+
    <interface name="org.freedesktop.DBus.Binding.TestSignals">
    <annotation name="org.freedesktop.DBus.Description" value="Signals that can be sent within the tests."/>
       <signal name="Triggered">
-         <annotation name="org.freedesktop.DBus.Description" value="Sent in response to a method call"/>
+         <annotation name="org.freedesktop.DBus.Description" value="Sent in response to method call Tests.Trigger"/>
          <arg type="t" name="parameter"/>
-      </signal>
-
-      <signal name="Trigger">
-         <annotation name="org.freedesktop.DBus.Description" value="Causes a callback"/>
-         <arg type="q" name="parameter1"/>
-         <arg type="d" name="parameter2"/>
       </signal>
    </interface>
 
-   <interface name="org.freedesktop.DBus.Binding.TestCallbacks">
-   <annotation name="org.freedesktop.DBus.Description" value="Callbacks to be made on the client."/>
+   <interface name="org.freedesktop.DBus.Binding.TestClient">
+   <annotation name="org.freedesktop.DBus.Description" value="Interface on the client side"/>
       <method name="Response" >
-         <annotation name="org.freedesktop.DBus.Description" value="when the trigger signal is received, this method should be called on the sending service/object."/>
+         <annotation name="org.freedesktop.DBus.Description" value="To be called by the server upon receiving signal TestClient.Trigger using the path it came from"/>
          <arg type="q" name="input1" direction="in"/>
          <arg type="d" name="input2" direction="in"/>
       </method>
+      <signal name="Trigger">
+         <annotation name="org.freedesktop.DBus.Description" value="Causes a callback to TestClient.Response"/>
+         <arg type="q" name="parameter1"/>
+         <arg type="d" name="parameter2"/>
+      </signal>
    </interface>
 </node>
